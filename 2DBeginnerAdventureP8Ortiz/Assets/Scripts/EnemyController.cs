@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    // Public variables
     public float speed;
     public bool vertical;
     public float changeTime = 3.0f;
 
-    //Public variables
+    // Private variables
     Rigidbody2D rigidbody2d;
     float timer;
     int direction = -1;
@@ -35,7 +36,7 @@ public class EnemyController : MonoBehaviour
             direction = -direction;
             timer = changeTime;
         }
-
+    }
         // FixedUpdate has the same call rate as the physics system
         void FixedUpdate()
         {
@@ -65,7 +66,7 @@ public class EnemyController : MonoBehaviour
                 player.ChangeHealth(-1);
             }
         }
-    }
+    
 }
 
 

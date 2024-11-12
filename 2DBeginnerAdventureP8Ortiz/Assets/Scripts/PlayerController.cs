@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -30,8 +31,15 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-
     {
+        move = MoveAction.ReadValue<Vector2>();
+
+
+
+        if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
+        {
+            MoveDirection.Set(move.x, move.y);
+            MoveDirection.Normalize();
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
