@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class EnemyController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class EnemyController : MonoBehaviour
 
     // Private variables
     Rigidbody2D rigidbody2d;
+    Animator animator;
     float timer;
     int direction = -1;
 
@@ -20,6 +22,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         timer = changeTime;
     }
 
@@ -40,15 +43,28 @@ public class EnemyController : MonoBehaviour
         // FixedUpdate has the same call rate as the physics system
         void FixedUpdate()
         {
+            timer -= Time.deltaTime;
+
+
+            if (timer < 0)
+            {
+                direction = -direction;
+                timer = changeTime;
+            }
+
             Vector2 position = rigidbody2d.position;
 
             if (vertical)
             {
                 position.y = position.y + speed * direction * Time.deltaTime;
+                animator.SetFloat("Move X", 0);
+                animator.SetFloat("Move Y", direction);
             }
             else
             {
                 position.x = position.x + speed * direction * Time.deltaTime;
+                animator.SetFloat("Move X", direction);
+                animator.SetFloat("Move Y", 0);
             }
 
 

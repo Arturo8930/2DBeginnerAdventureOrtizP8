@@ -8,13 +8,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    //Variables related to player character movement
+    // Variables related to the health system
     public int maxHealth = 5;
     public int health { get { return currentHealth ; }}
     int currentHealth = 1;
 
 
-
+    //Variables related to player character movement
     public InputAction MoveAction;
     Rigidbody2D rigidbody2d;
     Vector2 move;
@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour
     {
         MoveAction.Enable();
         rigidbody2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
+
+        currentHealth = maxHealth;
     }
 
 
@@ -38,8 +42,16 @@ public class PlayerController : MonoBehaviour
 
         if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
         {
-            MoveDirection.Set(move.x, move.y);
-            MoveDirection.Normalize();
+            moveDirection.Set(move.x, move.y);
+            moveDirection.Normalize();
+        }
+
+
+        animator.SetFloat("Move X", moveDirection.x);
+        animator.SetFloat("Move Y", moveDirection.y);
+        animator.SetFloat("Speed", move.magnitude);
+
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
@@ -71,7 +83,22 @@ public class PlayerController : MonoBehaviour
     public float timeInvincible = 2.0f;
     bool isInvincible;
     float damageCooldown;
-
-     
     
+    // Variables related to animation
+    Animator animator;
+    Vector2 moveDirection = new Vector2(1,0);
+
+    // Variables related to projectiles
+    public GameObject projectilePrefab;
+    public InputAction launchAction;
+
+    void Launch()
+    {
+        GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
+        projectile.Launch(moveDirection, 300);
+
+
+        animator.SetTrigger("Launch");
+    }
 }   
