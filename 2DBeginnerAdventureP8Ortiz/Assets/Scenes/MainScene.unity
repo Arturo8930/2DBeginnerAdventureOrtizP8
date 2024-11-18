@@ -71503,8 +71503,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3369548270992523821, guid: a3b34e594fa5cae4685d481557c02f64,
         type: 3}
+      propertyPath: maxHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3369548270992523821, guid: a3b34e594fa5cae4685d481557c02f64,
+        type: 3}
       propertyPath: MoveAction.m_Name
       value: Move
+      objectReference: {fileID: 0}
+    - target: {fileID: 3369548270992523821, guid: a3b34e594fa5cae4685d481557c02f64,
+        type: 3}
+      propertyPath: launchAction.m_Name
+      value: Launch
       objectReference: {fileID: 0}
     - target: {fileID: 3887840598249000387, guid: a3b34e594fa5cae4685d481557c02f64,
         type: 3}

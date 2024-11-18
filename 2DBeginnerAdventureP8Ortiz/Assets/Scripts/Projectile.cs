@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 
 
 public class Projectile : MonoBehaviour
@@ -30,14 +30,19 @@ public class Projectile : MonoBehaviour
     {
         rigidbody2d.AddForce(direction * force);
     }
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        EnemyController enemy = other.collider.GetComponent<EnemyController>();
-        if (enemy != null)
-        {
-            enemy.Fix();
-        }
 
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+
+        EnemyController enemy = other.GetComponent<EnemyController>();
+       if (enemy != null)
+           {
+               enemy.Fix();
+           }
+
+
+        Debug.Log("Projectile collision with" + other.gameObject);
         Destroy(gameObject);
     }
 }

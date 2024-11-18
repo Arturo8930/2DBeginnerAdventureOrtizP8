@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     Animator animator;
     float timer;
     int direction = -1;
+    bool broken = true;
 
 
     // Start is called before the first frame update
@@ -40,50 +41,58 @@ public class EnemyController : MonoBehaviour
             timer = changeTime;
         }
     }
-        // FixedUpdate has the same call rate as the physics system
-        void FixedUpdate()
+    // FixedUpdate has the same call rate as the physics system
+    void FixedUpdate()
+    {
+        if (!broken)
         {
-            timer -= Time.deltaTime;
+            return;
+        }
 
+        Vector2 position = rigidbody2d.position;
 
-            if (timer < 0)
-            {
-                direction = -direction;
-                timer = changeTime;
-            }
-
-            Vector2 position = rigidbody2d.position;
-
-            if (vertical)
-            {
-                position.y = position.y + speed * direction * Time.deltaTime;
-                animator.SetFloat("Move X", 0);
-                animator.SetFloat("Move Y", direction);
-            }
-            else
-            {
-                position.x = position.x + speed * direction * Time.deltaTime;
-                animator.SetFloat("Move X", direction);
-                animator.SetFloat("Move Y", 0);
-            }
-
-
-            rigidbody2d.MovePosition(position);
+        if (vertical)
+        {
+            position.y = position.y + speed * direction * Time.deltaTime;
+            animator.SetFloat("Move X", 0);
+            animator.SetFloat("Move Y", direction);
+        }
+        else
+        {
+            position.x = position.x + speed * direction * Time.deltaTime;
+            animator.SetFloat("Move X", direction);
+            animator.SetFloat("Move Y", 0);
         }
 
 
-        void OnCollisionEnter2D(Collision2D other)
+        rigidbody2d.MovePosition(position);
+    }
+
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+
+
+        if (player != null)
         {
-            PlayerController player = other.gameObject.GetComponent<PlayerController>();
-
-
-            if (player != null)
-            {
-                player.ChangeHealth(-1);
-            }
+            player.ChangeHealth(-1);
         }
-    
+    }
+
+    void CollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
+    }
+
+    public void Fix()
+    {
+        broken = false;
+        GetComponent<Rigidbody2D>().simulated = false;
+        animator.SetTrigger("Fixed");
+    }
 }
+   
 
 
 

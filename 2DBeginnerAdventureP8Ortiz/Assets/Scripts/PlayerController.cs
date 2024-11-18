@@ -61,6 +61,13 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
 
 
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            Launch();
+        }
+
+
+
         
     }
     public void ChangeHealth (int amount)
@@ -100,5 +107,6 @@ public class PlayerController : MonoBehaviour
 
 
         animator.SetTrigger("Launch");
+
     }
 }   

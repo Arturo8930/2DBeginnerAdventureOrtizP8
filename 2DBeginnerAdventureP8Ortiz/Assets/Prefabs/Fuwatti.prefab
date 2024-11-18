@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3887840598249000387}
   - component: {fileID: 5858983536569805637}
   - component: {fileID: 8679609383878232697}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fuwatti
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -112,6 +112,17 @@ MonoBehaviour:
     m_Flags: 0
   speed: 3.04
   timeInvincible: 2
+  projectilePrefab: {fileID: 6136420740245997964, guid: f825a3abb1ad40e4d8e597fa5327af43,
+    type: 3}
+  launchAction:
+    m_Name: Launch
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5a733b5f-f448-469d-8db0-b77171b5a4bf
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!50 &3887840598249000387
 Rigidbody2D:
   serializedVersion: 4
