@@ -7,8 +7,10 @@ public class CollectableHealth : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+
         PlayerController controller = other.GetComponent<PlayerController>();
 
+        controller.PlaySound(collectedClip);
 
         if (controller != null && controller.health< controller.maxHealth)
         {
@@ -16,4 +18,6 @@ public class CollectableHealth : MonoBehaviour
           Destroy(gameObject);
         }
     }
+
+    public AudioClip collectedClip;
 }

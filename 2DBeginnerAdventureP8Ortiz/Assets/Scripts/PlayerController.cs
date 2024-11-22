@@ -26,9 +26,9 @@ public class PlayerController : MonoBehaviour
     {
         MoveAction.Enable();
         rigidbody2d = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -95,6 +95,9 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     public InputAction launchAction;
 
+    // Variables related to audio
+    AudioSource audioSource;
+
     void Launch()
     {
         GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
@@ -116,6 +119,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 
     
